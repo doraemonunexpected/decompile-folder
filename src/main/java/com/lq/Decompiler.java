@@ -11,13 +11,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Decompiler {
 
-  private String fernFlower = "java -jar C:\\Users\\luqingterity\\Desktop\\open-sources\\decompile-folder\\fernflower.jar";
-
   private String source;
 
   private String topPackageName;
 
   private String dest;
+
+  private String fernFlower;
 
   private ExecutorService pool = Executors.newFixedThreadPool(5);
 
@@ -26,11 +26,13 @@ public class Decompiler {
   public Decompiler(
     String source,
     String topPackageName,
-    String dest)
+    String dest,
+    String fernFlower)
   {
     this.source = source;
     this.topPackageName = topPackageName;
     this.dest = dest;
+    this.fernFlower = "java -jar " + fernFlower;
   }
 
   public void start() throws Exception
@@ -49,8 +51,12 @@ public class Decompiler {
             try {
               Process process = Runtime.getRuntime().exec("cmd.exe /c " + fernFlower + " " + file.getAbsolutePath() + " " + path);
               int status = process.waitFor();
-            } catch (Exception e) {
-              e.printStackTrace();
+              if (status != 0) {
+                throw new RuntimeException("");
+              }
+            } catch (Throwable t) {
+              t.printStackTrace();
+              System.exit(-1);
             } finally {
               taskToProcess.decrementAndGet();
             }
@@ -73,6 +79,6 @@ public class Decompiler {
       }
     }).start();
     pool.awaitTermination(1, TimeUnit.DAYS);
-    System.out.println("folderToSearch = ");
+    System.out.println("done.");
   }
 }
