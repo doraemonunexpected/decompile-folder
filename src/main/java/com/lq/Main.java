@@ -1,37 +1,18 @@
 package com.lq;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-
-@Component
-@SpringBootApplication
 public class Main {
 
-  @Value("${source}")
-  private String source;
+  private static final String SOURCE = "C:\\Users\\luqingterity\\Desktop\\realestate\\WEB-INF\\classes";
 
-  @Value("${topPackageName}")
-  private String topPackageName;
+  private static final String TOP_PACKAGE_NAME = "com";
 
-  @Value("${dest}")
-  private String dest;
+  private static final String DEST = "C:\\Users\\luqingterity\\Desktop\\target";
 
-  @Value("${fernFlowerPath}")
-  private String fernFlowerPath;
+  private static final String FERN_FLOWER_PATH = "C:\\Users\\luqingterity\\Desktop\\decompile-folder\\fernflower.jar";
 
-  @PostConstruct
-  void init() throws Exception
+  public static void main(String[] args) throws Exception
   {
-    new Decompiler(source, topPackageName, dest, fernFlowerPath).start();
-  }
-
-  public static void main(String[] args)
-  {
-    SpringApplication.run(Main.class, args);
+    new Decompiler(SOURCE, TOP_PACKAGE_NAME, DEST, FERN_FLOWER_PATH).start();
   }
 
 }

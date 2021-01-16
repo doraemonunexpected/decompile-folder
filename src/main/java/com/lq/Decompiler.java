@@ -74,7 +74,7 @@ public class Decompiler {
             return;
           }
           System.out.println("taskToProcess : " + taskToProcess.get());
-        } catch (Exception e) {
+        } catch (Exception ignore) {
         }
       }
     }).start();
