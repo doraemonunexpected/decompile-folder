@@ -11,27 +11,27 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Decompiler {
 
-    private String source;
+    private final String source;
 
-    private String topPackageName;
+    private final String topPackageName;
 
-    private String dest;
+    private final String dest;
 
-    private String fernFlower;
+    private final String fernFlower;
 
-    private ExecutorService pool = Executors.newFixedThreadPool(5);
+    private final ExecutorService pool = Executors.newFixedThreadPool(8);
 
-    private AtomicInteger taskToProcess = new AtomicInteger(0);
+    private final AtomicInteger taskToProcess = new AtomicInteger(0);
 
     public Decompiler(
             String source,
             String topPackageName,
-            String dest,
-            String fernFlower)
+            String dest)
     {
         this.source = source;
         this.topPackageName = topPackageName;
         this.dest = dest;
+        String fernFlower = System.getProperty("user.dir") + "\\lib\\fernflower.jar";
         this.fernFlower = "java -jar " + fernFlower;
     }
 
