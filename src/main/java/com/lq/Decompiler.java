@@ -71,6 +71,7 @@ public class Decompiler {
                 try {
                     Thread.sleep(1000);
                     if (taskToProcess.get() == 0) {
+                        pool.shutdownNow();
                         return;
                     }
                     System.out.println("taskToProcess : " + taskToProcess.get());
